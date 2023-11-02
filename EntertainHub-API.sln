@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntertainHub-API", "EntertainHub-API\EntertainHub-API.csproj", "{2163FA8D-8F30-4380-A255-DBABA7F529AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{73AA6BC2-8673-4D54-9C24-2CF0D072D710}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{E9F680B5-9F0D-43A2-ABF4-58983E1CE73D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2163FA8D-8F30-4380-A255-DBABA7F529AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2163FA8D-8F30-4380-A255-DBABA7F529AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2163FA8D-8F30-4380-A255-DBABA7F529AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2163FA8D-8F30-4380-A255-DBABA7F529AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73AA6BC2-8673-4D54-9C24-2CF0D072D710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73AA6BC2-8673-4D54-9C24-2CF0D072D710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73AA6BC2-8673-4D54-9C24-2CF0D072D710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73AA6BC2-8673-4D54-9C24-2CF0D072D710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9F680B5-9F0D-43A2-ABF4-58983E1CE73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9F680B5-9F0D-43A2-ABF4-58983E1CE73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9F680B5-9F0D-43A2-ABF4-58983E1CE73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9F680B5-9F0D-43A2-ABF4-58983E1CE73D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01862B7E-9080-4C25-B8E7-E74C9E5D01FD}
+	EndGlobalSection
+EndGlobal
