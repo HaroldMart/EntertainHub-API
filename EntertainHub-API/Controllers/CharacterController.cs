@@ -1,35 +1,36 @@
-﻿using Data;
+﻿using Data.Models.Content;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Data.Models.Content;
+using Data.Models;
 using Repository.Services;
 
 namespace EntertainHub_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SerieController : ControllerBase
+    public class CharacterController : ControllerBase
     {
         private readonly LibraryContext _dbContext;
-        private readonly SerieService _serieService;
-        public SerieController(LibraryContext dbContext)
+        private readonly CharacterService _characterService;
+        public CharacterController(LibraryContext dbContext)
         {
             _dbContext = dbContext;
-            _serieService = new(_dbContext);
+            _characterService = new(_dbContext);
         }
 
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _serieService.GetAll());
+            return Ok(await _characterService.GetAll());
         }
 
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _serieService.Get(id);
+            var data = await _characterService.Get(id);
             if (data != null)
             {
                 return Ok(data);
@@ -39,16 +40,16 @@ namespace EntertainHub_API.Controllers
 
         [HttpPost]
         [Route("Insert")]
-        public async Task<IActionResult> Insert([FromBody] Serie serie)
+        public async Task<IActionResult> Insert([FromBody] Character character)
         {
-            return Ok(await _serieService.Create(serie));
+            return Ok(await _characterService.Create(character));
         }
 
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> Update([FromBody] Serie serie)
+        public async Task<IActionResult> Update([FromBody] Character character)
         {
-            await _serieService.Update(serie);
+            await _characterService.Update(character);
             return NoContent();
         }
 
@@ -56,7 +57,7 @@ namespace EntertainHub_API.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _serieService.Delete(id);
+            await _characterService.Delete(id);
             return NoContent();
         }
     }

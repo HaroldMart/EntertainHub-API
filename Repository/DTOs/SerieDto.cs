@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Models
+namespace Repository.DTOs
 {
-    public class Comic
+    public class SerieDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,7 +14,6 @@ namespace Data.Models
         public byte[] Image { get; set; }
         public string Release { get; set; }
         public string Date { get; set; }
-        public int Pages { get; set; }
-        public string Author { get; set; }
+        public ICollection<CharacterDto>? Characters { get; set; }
     }
 }

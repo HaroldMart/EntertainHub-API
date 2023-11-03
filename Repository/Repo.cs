@@ -1,4 +1,5 @@
 ﻿using Data;
+using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interface;
 using System;
@@ -9,35 +10,37 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class Services<T> : IEntertainment<T>
-        where T : class
+    public abstract class Repo<Entity> : IRepository<Entity>
+        where Entity : class
     {
         private readonly LibraryContext _dbContext;
-        private DbSet<T> EntrySet {
+        protected DbSet<Entity> EntrySet
+        {
             get
             {
-                return _dbContext.Set<T>();
-            }}
+                return _dbContext.Set<Entity>();
+            }
+        }
 
-        public Services(LibraryContext dbcontext) { 
+        public Repo(LibraryContext dbcontext)
+        {
             _dbContext = dbcontext;
         }
-        public async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<Entity>> GetAll()
         {
-            return await EntrySet.ToListAsync();
+            return await EntrySet.AsNoTracking().ToListAsync();
         }
-        public async Task<T> Get(int id)
+        public virtual async Task<Entity> Get(int id)
         {
-            var data = await EntrySet.FindAsync(id);
-            return data; 
+            return await EntrySet.FindAsync(id);
         }
-        public async Task<T> Create(T entity)
+        public async Task<Entity> Create(Entity entity)
         {
             EntrySet.Add(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }
-        public async Task Update(T entity)
+        public async Task Update(Entity entity)
         {
             EntrySet.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
