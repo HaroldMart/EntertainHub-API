@@ -7,8 +7,6 @@ This is an Asp API using Entity framework with Code First, it is about entertain
 - Entity framework Code First
 - MYSQL database
 
-![image](https://github.com/HaroldMart/EntertainHub-API/assets/93040571/a55b94a0-9509-47d5-af5b-654f4c2fc822)
-
 <br/>
 
 You just have to do a few things to get started:
@@ -36,5 +34,7 @@ Add-Migration "my_migration"
 
 Then, you can run the Update-database command
 <br/>
+
+![image](https://github.com/HaroldMart/EntertainHub-API/assets/93040571/98dc98d8-eb9d-4a1e-9361-3be7c9ed0529)
 
 Easy, you have your own API and you can upload it to hosting, and connect to it with your Frontend Applications ...
