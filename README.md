@@ -36,7 +36,10 @@ Add-Migration "my_migration"
 ```
 
 Then, you can run the Update-database command
+
 <br/>
+
+If your run the project, you will see something like this:
 
 ![image](https://github.com/HaroldMart/EntertainHub-API/assets/93040571/98dc98d8-eb9d-4a1e-9361-3be7c9ed0529)
 
