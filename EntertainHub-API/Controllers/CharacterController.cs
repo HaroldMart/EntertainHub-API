@@ -1,34 +1,35 @@
-﻿using Data;
+﻿using Data.Models.Content;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Data.Models.Content;
+using Data.Models;
 using Repository.Services;
 
 namespace EntertainHub_API.Controllers
 {
     [Route("entertainHubApi/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class CharacterController : ControllerBase
     {
         private readonly LibraryContext _dbContext;
-        private readonly BookService _bookService;
-        public BookController(LibraryContext dbContext)
+        private readonly CharacterService _characterService;
+        public CharacterController(LibraryContext dbContext)
         {
             _dbContext = dbContext;
-            _bookService = new(_dbContext);
+            _characterService = new(_dbContext);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_bookService.GetAll());
+            return Ok(_characterService.GetAll());
         }
 
         [HttpGet]
         [Route("Get/{id}")]
         public IActionResult Get(int id)
         {
-            var data = _bookService.Get(id);
+            var data = _characterService.Get(id);
             if (data != null)
             {
                 return Ok(data);
@@ -38,16 +39,16 @@ namespace EntertainHub_API.Controllers
 
         [HttpPost]
         [Route("Insert")]
-        public async Task<IActionResult> Insert([FromBody] Book book)
+        public async Task<IActionResult> Insert([FromBody] Character character)
         {
-            return Ok(await _bookService.Create(book));
+            return Ok(await _characterService.Create(character));
         }
 
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> Update([FromBody] Book book)
+        public async Task<IActionResult> Update([FromBody] Character character)
         {
-            await _bookService.Update(book);
+            await _characterService.Update(character);
             return Ok("Updated");
         }
 
@@ -55,7 +56,7 @@ namespace EntertainHub_API.Controllers
         [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _bookService.Delete(id);
+            await _characterService.Delete(id);
             return Ok("Deleted!");
         }
     }

@@ -1,8 +1,9 @@
 ﻿using Data;
-using Data.Models;
+using Data.Models.Content;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using Repository.Services;
 
 namespace EntertainHub_API.Controllers
 {
@@ -11,7 +12,7 @@ namespace EntertainHub_API.Controllers
     public class AnimeController : ControllerBase
     {
         private readonly LibraryContext _dbContext;
-        private readonly Services<Anime> _animeService;
+        private readonly AnimeService _animeService;
         public AnimeController(LibraryContext dbContext) {
 
             _dbContext = dbContext;
@@ -19,17 +20,16 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            return Ok(await _animeService.GetAll());
+            return Ok(_animeService.GetAll());
         }
 
         [HttpGet]
-        [Route("Get")]
-        public async Task<IActionResult> Get(int id)
+        [Route("Get/{id}")]
+        public IActionResult Get(int id)
         {
-            var data = await _animeService.Get(id);
+            var data = _animeService.Get(id);
             if (data != null)
             {
                 return Ok(data);
@@ -49,15 +49,15 @@ namespace EntertainHub_API.Controllers
         public async Task<IActionResult> Update([FromBody] Anime anime)
         {
             await _animeService.Update(anime);
-            return NoContent();
+            return Ok("Updated");
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _animeService.Delete(id);
-            return NoContent();
+            return Ok("Deleted!");
         }
     }
 }

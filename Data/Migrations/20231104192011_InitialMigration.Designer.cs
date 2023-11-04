@@ -2,6 +2,7 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231104192011_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,12 +222,12 @@ namespace Data.Migrations
                 {
                     b.HasBaseType("Data.Models.Entertainment");
 
-                    b.Property<string>("Director")
+                    b.Property<int>("Director")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Episodes")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("Episodes")
-                        .HasColumnType("int");
 
                     b.Property<int>("Seasons")
                         .HasColumnType("int");

@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Movie
+    public class Character
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public byte[] Image { get; set; }
-        public string Release { get; set; }
-        public string Date { get; set; }
-        public string Duration { get; set; }
-        public string Director { get; set; }
+        public int IdEntertainment { get; set; }
+        public Entertainment? Entertainment { get; set; }
     }
 }
