@@ -1,6 +1,6 @@
 # EntertainHub-API
 
-This is an Asp API using Entity framework with Code First, it is about entertainment content, you can use this API for your projects to store books, anime, series, movies and other information about your favorite content and connect your frontend applications, the API use the MySQL database to save data.
+This is an Asp .NET Web API using Entity framework with Code First, it is about entertainment content, you can use this API for your projects to store books, anime, series, movies and other information about your favorite content and connect your frontend applications, the API use the MySQL database to save data.
 
 ### Technologies
 - ASP .NET Web API
