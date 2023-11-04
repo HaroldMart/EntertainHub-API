@@ -3,7 +3,7 @@
 This is an Asp API using Entity framework with Code First, it is about entertainment content, you can use this API for your projects to store books, anime, series, movies and other information about your favorite content and connect your frontend applications, the API use the MySQL database to save data.
 
 ### Technologies
-- ASP Web API
+- ASP .NET Web API
 - Entity framework Code First
 - MYSQL database
 
