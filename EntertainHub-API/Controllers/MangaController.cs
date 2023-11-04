@@ -6,7 +6,7 @@ using Repository.Services;
 
 namespace EntertainHub_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("entertainHubApi/[controller]")]
     [ApiController]
     public class MangaController : ControllerBase
     {
@@ -19,17 +19,16 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            return Ok(await _mangaService.GetAll());
+            return Ok(_mangaService.GetAll());
         }
 
         [HttpGet]
         [Route("Get")]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            var data = await _mangaService.Get(id);
+            var data = _mangaService.Get(id);
             if (data != null)
             {
                 return Ok(data);

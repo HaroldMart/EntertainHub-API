@@ -4,62 +4,33 @@ using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Utils;
 using Data.Models.Content;
+using Data.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EntertainHub_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("entertainHubApi/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {
         private readonly LibraryContext _dbContext;
-        private readonly InfoApi _animeService;
-        //public HomeController(LibraryContext dbContext)
-        //{
+        private readonly InfoApi _infoApi;
 
-        //    _dbContext = dbContext;
-        //    _animeService = new(_dbContext);
-        //}
+        public HomeController(LibraryContext dbContext)
+        {
+            _dbContext = dbContext;
+            _infoApi = new(_dbContext);
+        }
 
-        //[HttpGet]
-        //[Route("GetAll")]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    return Ok(await _animeService.GetAll());
-        //}
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var count = _infoApi.CountData();
+            var urls = _infoApi.ListEndpoints();
+            var methods = _infoApi.ListMethods();
 
-        //[HttpGet]
-        //[Route("Get")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var data = await _animeService.Get(id);
-        //    if (data != null)
-        //    {
-        //        return Ok(data);
-        //    }
-        //    return NotFound("Not found");
-        //}
-
-        //[HttpPost]
-        //[Route("Insert")]
-        //public async Task<IActionResult> Insert([FromBody] Anime anime)
-        //{
-        //    return Ok(await _animeService.Create(anime));
-        //}
-
-        //[HttpPut]
-        //[Route("Update")]
-        //public async Task<IActionResult> Update([FromBody] Anime anime)
-        //{
-        //    await _animeService.Update(anime);
-        //    return NoContent();
-        //}
-
-        //[HttpDelete]
-        //[Route("Delete")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    await _animeService.Delete(id);
-        //    return NoContent();
-        //}
+            return Ok(_infoApi.GenerateJson(count, urls, methods));
+        }
     }
 }

@@ -2,7 +2,9 @@
 using Data.Models;
 using Data.Models.Content;
 using Microsoft.EntityFrameworkCore;
+using Repository.DTOs;
 using Repository.Interface;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +13,42 @@ using System.Threading.Tasks;
 
 namespace Repository.Services
 {
-    public class CharacterService : Repo<Character>
+    public class CharacterService : Repo<Character>, IService<CharacterDto>
     {
         public CharacterService(LibraryContext dbcontext) : base(dbcontext) { }
 
-        public override async Task<IEnumerable<Character>> GetAll()
+        public ICollection<CharacterDto> GetAll()
         {
-            return (IEnumerable<Character>)EntrySet.AsNoTracking().Select(p => new Character
+            var data = EntrySet.AsNoTracking().Select(p => new CharacterDto
             {
                 Id = p.Id,
                 Name = p.Name,
                 Description = p.Description,
-            }).ToListAsync();
+                IdEntertainment = p.IdEntertainment
+            }).ToList();
+
+            return data;
+
         }
-        public override async Task<Character> Get(int id)
+        public CharacterDto? Get(int id)
         {
-            return (Character)EntrySet.AsNoTracking().Select(p => new Character
+            var data = EntrySet.FirstOrDefault(i => i.Id == id);
+            CharacterDto character;
+
+            if (data != null)
             {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                IdEntertainment = p.IdEntertainment,
-            });
+                character = new CharacterDto
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Description = data.Description,
+                    IdEntertainment = data.IdEntertainment
+                };
+
+            return character;
+        };
+
+            return null;
         }
     }
 }

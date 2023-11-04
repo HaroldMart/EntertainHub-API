@@ -8,12 +8,16 @@ namespace Repository.DTOs
 {
     public class SerieDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public byte[] Image { get; set; }
+        public byte[] ImageFile { get; set; }
         public string Release { get; set; }
+        public string ImageUrl { get; set; }
         public string Date { get; set; }
+        public int Seasons { get; set; }
+        public string Episodes { get; set; }
+        public int Director { get; set; }
         public ICollection<CharacterDto>? Characters { get; set; }
     }
 }

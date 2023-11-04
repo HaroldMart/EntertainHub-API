@@ -26,14 +26,14 @@ namespace Repository
         {
             _dbContext = dbcontext;
         }
-        public virtual async Task<IEnumerable<Entity>> GetAll()
-        {
-            return await EntrySet.AsNoTracking().ToListAsync();
-        }
-        public virtual async Task<Entity> Get(int id)
-        {
-            return await EntrySet.FindAsync(id);
-        }
+        //public virtual async Task<IEnumerable<Entity>> GetAll()
+        //{
+        //    return await EntrySet.AsNoTracking().ToListAsync();
+        //}
+        //public virtual async Task<Entity> Get(int id)
+        //{
+        //    return await EntrySet.FindAsync(id);
+        //}
         public async Task<Entity> Create(Entity entity)
         {
             EntrySet.Add(entity);

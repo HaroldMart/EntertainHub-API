@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Repository.DTOs;
 
 namespace Repository.Services
 {
@@ -13,53 +14,67 @@ namespace Repository.Services
     {
         public NovelService(LibraryContext dbcontext) : base(dbcontext) { }
 
-        public override Task<IEnumerable<Novel>> GetAll()
+        public ICollection<ReadingContentDto> GetAll()
         {
-            var data = (IEnumerable<Novel>)EntrySet.AsNoTracking().Select(p => new Novel
+            var data = EntrySet.AsNoTracking().Select(p => new ReadingContentDto
             {
                 Id = p.Id,
                 Name = p.Name,
                 Description = p.Description,
-                Image = p.Image,
+                ImageFile = p.ImageFile,
                 Release = p.Release,
+                ImageUrl = p.ImageUrl,
                 Date = p.Date,
                 Pages = p.Pages,
                 Author = p.Author,
-                Characters = (ICollection<Data.Models.Character>)
-                p.Characters
-                .Select(c => new
-                {
-                    c.Id,
-                    c.Name,
-                    c.Description
-                }).ToList()
-            }).ToListAsync();
-
-            return (Task<IEnumerable<Novel>>)data;
-        }
-        public override async Task<Novel> Get(int id)
-        {
-            var data = (Novel)EntrySet.AsNoTracking().Select(p => new Novel
+                Characters =
+           p.Characters
+            .Select(c => new CharacterDto
             {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Image = p.Image,
-                Release = p.Release,
-                Date = p.Date,
-                Pages = p.Pages,
-                Author = p.Author,
-                Characters = (ICollection<Data.Models.Character>)
-                p.Characters
-                .Select(c => new
-                {
-                    c.Id,
-                    c.Name,
-                    c.Description
-                }).ToList()
-            });
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                IdEntertainment = c.IdEntertainment
+            }).ToList()
+            }).ToList();
 
             return data;
+        }
+        public ReadingContentDto? Get(int id)
+        {
+            var data = EntrySet.Include(c => c.Characters).FirstOrDefault(i => i.Id == id);
+            ReadingContentDto novel;
+
+            if (data != null)
+            {
+                novel = new ReadingContentDto
+                {
+                    Id = data?.Id,
+                    Name = data.Name,
+                    Description = data.Description,
+                    ImageFile = data.ImageFile,
+                    Release = data.Release,
+                    ImageUrl = data.ImageUrl,
+                    Date = data.Date,
+                    Pages = data.Pages,
+                    Author = data.Author,
+                };
+
+                if (data.Characters != null)
+                {
+                    novel.Characters = data.Characters.Select(c => new CharacterDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Description = c.Description,
+                        IdEntertainment = c.IdEntertainment
+                    }).ToList();
+                };
+
+                return novel ;
+            }
+
+            return null;
         }
     }
 }

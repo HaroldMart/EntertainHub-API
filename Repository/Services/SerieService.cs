@@ -1,67 +1,78 @@
 ﻿using Data.Models.Content;
 using Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Repository.DTOs;
+using Repository.Interfaces;
 
 namespace Repository.Services
 {
-    public class SerieService : Repo<Serie>
+    public class SerieService : Repo<Serie>, IService<SerieDto>
     {
         public SerieService(LibraryContext dbcontext) : base(dbcontext) { }
 
-        public override Task<IEnumerable<Serie>> GetAll()
+        public ICollection<SerieDto> GetAll()
         {
-            var data = (IEnumerable<Serie>)EntrySet.AsNoTracking().Select(p => new Serie
+            var data = EntrySet.AsNoTracking().Select(p => new SerieDto
             {
                 Id = p.Id,
                 Name = p.Name,
                 Description = p.Description,
-                Image = p.Image,
+                ImageFile = p.ImageFile,
                 Release = p.Release,
+                ImageUrl = p.ImageUrl,
                 Date = p.Date,
                 Seasons = p.Seasons,
-                Director = p.Director,
                 Episodes = p.Episodes,
-                Characters = (ICollection<Data.Models.Character>)
+                Director = p.Director,
+                Characters =
            p.Characters
-           .Select(c => new
-           {
-               c.Id,
-               c.Name,
-               c.Description
-           }).ToList()
-            }).ToListAsync();
-
-            return (Task<IEnumerable<Serie>>)data;
-        }
-        public override async Task<Serie> Get(int id)
-        {
-            var data = (Serie)EntrySet.AsNoTracking().Select(p => new Serie
+            .Select(c => new CharacterDto
             {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Image = p.Image,
-                Release = p.Release,
-                Date = p.Date,
-                Seasons = p.Seasons,
-                Director = p.Director,
-                Episodes = p.Episodes,
-                Characters = (ICollection<Data.Models.Character>)
-                p.Characters
-                .Select(c => new
-                {
-                    c.Id,
-                    c.Name,
-                    c.Description
-                }).ToList()
-            });
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                IdEntertainment = c.IdEntertainment
+            }).ToList()
+            }).ToList();
 
             return data;
+        }
+        public SerieDto? Get(int id)
+        {
+            var data = EntrySet.Include(c => c.Characters).FirstOrDefault(i => i.Id == id);
+            SerieDto serie;
+
+            if (data != null)
+            {
+                serie = new SerieDto
+                {
+                    Id = data?.Id,
+                    Name = data.Name,
+                    Description = data.Description,
+                    ImageFile = data.ImageFile,
+                    Release = data.Release,
+                    ImageUrl = data.ImageUrl,
+                    Date = data.Date,
+                    Seasons = data.Seasons,
+                    Episodes = data.Episodes,
+                    Director = data.Director,
+                };
+
+                if (data.Characters != null)
+                {
+                    serie.Characters = data.Characters.Select(c => new CharacterDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Description = c.Description,
+                        IdEntertainment = c.IdEntertainment
+                    }).ToList();
+                };
+
+                return serie;
+            }
+
+            return null;
         }
     }
 }

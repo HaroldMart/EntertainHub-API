@@ -20,15 +20,14 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
             return Ok(_animeService.GetAll());
         }
 
         [HttpGet]
         [Route("Get")]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
             var data = _animeService.Get(id);
             if (data != null)
@@ -42,7 +41,7 @@ namespace EntertainHub_API.Controllers
         [Route("Insert")]
         public async Task<IActionResult> Insert([FromBody] Anime anime)
         {
-            return Ok();
+            return Ok(await _animeService.Create(anime));
         }
 
         [HttpPut]

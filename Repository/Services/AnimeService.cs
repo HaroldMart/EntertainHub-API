@@ -4,6 +4,7 @@ using Data.Models.Content;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Repository.DTOs;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Services
 {
-    public class AnimeService : Repo<Anime>
+    public class AnimeService : Repo<Anime>, IService<AnimeDto>
     {
         public AnimeService(LibraryContext dbcontext) : base(dbcontext) { }
 
@@ -24,8 +25,9 @@ namespace Repository.Services
                 Id = p.Id,
                 Name = p.Name,
                 Description = p.Description,
-                Image = p.Image,
+                ImageFile = p.ImageFile,
                 Release = p.Release,
+                ImageUrl = p.ImageUrl,
                 Date = p.Date,
                 Seasons = p.Seasons,
                 Studio = p.Studio,
@@ -36,7 +38,8 @@ namespace Repository.Services
             {
                 Id = c.Id,
                 Name = c.Name,
-                Description = c.Description
+                Description = c.Description,
+                IdEntertainment = c.IdEntertainment
             }).ToList()
             }).ToList();
 
@@ -45,17 +48,18 @@ namespace Repository.Services
         public AnimeDto? Get(int id)
         {
             var data = EntrySet.Include(c => c.Characters).FirstOrDefault(i => i.Id == id);
-            AnimeDto animes;
+            AnimeDto anime;
 
             if(data != null)
             {
-                animes = new AnimeDto
+                anime = new AnimeDto
                 {
                     Id = data?.Id,
                     Name = data.Name,
                     Description = data.Description,
-                    Image = data.Image,
+                    ImageFile = data.ImageFile,
                     Release = data.Release,
+                    ImageUrl = data.ImageUrl,
                     Date = data.Date,
                     Seasons = data.Seasons,
                     Studio = data.Studio,
@@ -64,15 +68,16 @@ namespace Repository.Services
 
                 if (data.Characters != null)
                 {
-                    animes.Characters = data.Characters.Select(c => new CharacterDto
+                    anime.Characters = data.Characters.Select(c => new CharacterDto
                     {
                         Id = c.Id,
                         Name = c.Name,
-                        Description = c.Description
+                        Description = c.Description,
+                        IdEntertainment = c.IdEntertainment
                     }).ToList();
                 };
 
-                return animes;
+                return anime;
             }
 
             return null;

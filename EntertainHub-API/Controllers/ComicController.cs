@@ -19,17 +19,16 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _comicService.GetAll());
+            return Ok(_comicService.GetAll());
         }
 
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _comicService.Get(id);
+            var data = _comicService.Get(id);
             if (data != null)
             {
                 return Ok(data);
