@@ -12,8 +12,11 @@ This is an Asp .NET Web API using Entity framework with Code First, it is about 
 You just have to do a few things to get started:
 
 ### Start creating your database
+Install MYSQL and create the connection.
+<br/>
 
 You have to change the connectionString in the appsettings.json:
+
 
 ```
  "ConnectionStrings": {
