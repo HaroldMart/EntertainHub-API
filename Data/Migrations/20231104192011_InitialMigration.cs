@@ -6,7 +6,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitianMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,9 +22,10 @@ namespace Data.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: false),
-                    Image = table.Column<byte[]>(type: "longblob", nullable: false),
                     Release = table.Column<string>(type: "longtext", nullable: false),
                     Date = table.Column<string>(type: "longtext", nullable: false),
+                    ImageUrl = table.Column<string>(type: "longtext", nullable: false),
+                    Genres = table.Column<string>(type: "longtext", nullable: false),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false),
                     Anime_Seasons = table.Column<int>(type: "int", nullable: true),
                     Studio = table.Column<string>(type: "longtext", nullable: true),

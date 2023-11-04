@@ -25,7 +25,7 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("Get")]
+        [Route("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var data = _comicService.Get(id);
@@ -48,15 +48,15 @@ namespace EntertainHub_API.Controllers
         public async Task<IActionResult> Update([FromBody] Comic comic)
         {
             await _comicService.Update(comic);
-            return NoContent();
+            return Ok("Updated");
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _comicService.Delete(id);
-            return NoContent();
+            return Ok("Deleted!");
         }
     }
 }

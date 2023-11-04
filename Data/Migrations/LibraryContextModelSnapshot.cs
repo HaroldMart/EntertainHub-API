@@ -64,10 +64,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("ImageFile")
-                        .IsRequired()
-                        .HasColumnType("longblob");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -223,12 +219,12 @@ namespace Data.Migrations
                 {
                     b.HasBaseType("Data.Models.Entertainment");
 
-                    b.Property<int>("Director")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Episodes")
+                    b.Property<string>("Director")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Episodes")
+                        .HasColumnType("int");
 
                     b.Property<int>("Seasons")
                         .HasColumnType("int");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20231103233606_UpdatingModel")]
-    partial class UpdatingModel
+    [Migration("20231104201032_Updating")]
+    partial class Updating
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,10 +66,6 @@ namespace Data.Migrations
                     b.Property<string>("Genres")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<byte[]>("ImageFile")
-                        .IsRequired()
-                        .HasColumnType("longblob");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -226,12 +222,12 @@ namespace Data.Migrations
                 {
                     b.HasBaseType("Data.Models.Entertainment");
 
-                    b.Property<int>("Director")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Episodes")
+                    b.Property<string>("Director")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Episodes")
+                        .HasColumnType("int");
 
                     b.Property<int>("Seasons")
                         .HasColumnType("int");

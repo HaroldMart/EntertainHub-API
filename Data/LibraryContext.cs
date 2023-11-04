@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Data.Models.Content;
 using Data.Models;
-using MySql.EntityFrameworkCore.Extensions;
+
 
 namespace Data
 {
@@ -23,7 +18,7 @@ namespace Data
         public DbSet<Novel> Novel { get; set; }
         public DbSet<Comic> Comic { get; set; }
         public DbSet<Book> Book { get; set; }
-        public DbSet<Character> Characters { get; set; }
+        public DbSet<Character> Character { get; set; }
 
         public LibraryContext(DbContextOptions<LibraryContext> options):base(options) { }
 

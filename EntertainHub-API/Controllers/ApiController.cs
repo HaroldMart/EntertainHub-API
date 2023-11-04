@@ -12,25 +12,26 @@ namespace EntertainHub_API.Controllers
 {
     [Route("entertainHubApi/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class ApiController : ControllerBase
     {
         private readonly LibraryContext _dbContext;
         private readonly InfoApi _infoApi;
 
-        public HomeController(LibraryContext dbContext)
+        public ApiController(LibraryContext dbContext)
         {
             _dbContext = dbContext;
             _infoApi = new(_dbContext);
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Home()
         {
             var count = _infoApi.CountData();
             var urls = _infoApi.ListEndpoints();
             var methods = _infoApi.ListMethods();
+            var schemas = _infoApi.ListSchemas();
 
-            return Ok(_infoApi.GenerateJson(count, urls, methods));
+            return Ok(_infoApi.GenerateJson(count, urls, methods, schemas));
         }
     }
 }

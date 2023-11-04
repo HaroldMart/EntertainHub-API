@@ -26,7 +26,7 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("Get")]
+        [Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var data = _characterService.Get(id);
@@ -49,15 +49,15 @@ namespace EntertainHub_API.Controllers
         public async Task<IActionResult> Update([FromBody] Character character)
         {
             await _characterService.Update(character);
-            return NoContent();
+            return Ok("Updated");
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _characterService.Delete(id);
-            return NoContent();
+            return Ok("Deleted!");
         }
     }
 }

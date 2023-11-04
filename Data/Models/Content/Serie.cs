@@ -9,7 +9,7 @@ namespace Data.Models.Content
     public class Serie : Entertainment
     {
         public int Seasons { get; set; }
-        public string Episodes { get; set; }
-        public int Director { get; set; }
+        public int Episodes { get; set; }
+        public string Director { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace Repository.Services
                 Id = p.Id,
                 Name = p.Name,
                 Description = p.Description,
-                ImageFile = p.ImageFile,
                 Release = p.Release,
                 ImageUrl = p.ImageUrl,
                 Date = p.Date,
+                Genres = p.Genres,
                 Pages = p.Pages,
                 Author = p.Author,
                 Characters =
@@ -48,10 +48,10 @@ namespace Repository.Services
                     Id = data?.Id,
                     Name = data.Name,
                     Description = data.Description,
-                    ImageFile = data.ImageFile,
                     Release = data.Release,
                     ImageUrl = data.ImageUrl,
                     Date = data.Date,
+                    Genres = data.Genres,
                     Pages = data.Pages,
                     Author = data.Author,
                 };

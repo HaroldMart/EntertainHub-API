@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Data.Models.Content;
 using Repository.Services;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Repository.Utils;
 
 namespace EntertainHub_API.Controllers
 {
@@ -25,7 +28,7 @@ namespace EntertainHub_API.Controllers
         }
 
         [HttpGet]
-        [Route("Get")]
+        [Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var data = _novelService.Get(id);
@@ -48,15 +51,15 @@ namespace EntertainHub_API.Controllers
         public async Task<IActionResult> Update([FromBody] Novel novel)
         {
             await _novelService.Update(novel);
-            return NoContent();
+            return Ok("Updated");
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _novelService.Delete(id);
-            return NoContent();
+            return Ok("Deleted!");
         }
     }
 }

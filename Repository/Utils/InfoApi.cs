@@ -10,23 +10,25 @@ using Data.Models;
 using System.Security.Policy;
 using Data.Models.Content;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Utils
 {
     public class InfoApi : IGetInfo
     {
-        private readonly LibraryContext _dbContext;
-        public InfoApi(LibraryContext dbContext) {
+        private readonly DbContext _dbContext;
+        public InfoApi(DbContext dbContext) {
 
             _dbContext = dbContext;
         }
-        public object GenerateJson(object countData, object endPoints, object methods)
+        public object GenerateJson(object countData, object endPoints, object methods, object schemas)
         {
-            var data = new
+            var data = new 
             {
                 Count = countData,
                 Endpoints = endPoints,
-                Methods = methods
+                Methods = methods,
+                Schemas = schemas
             };
 
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
@@ -36,27 +38,18 @@ namespace Repository.Utils
 
         public object CountData()
         {
-            int animesCount = _dbContext.Set<Anime>().ToList().Count;
-            int booksCount = _dbContext.Set<Book>().ToList().Count;
-            int seriesCount = _dbContext.Set<Serie>().ToList().Count;
-            int moviesCount = _dbContext.Set<Movie>().ToList().Count;
-            int comicsCount = _dbContext.Set<Comic>().ToList().Count;
-            int mangasCount = _dbContext.Set<Manga>().ToList().Count;
-            int novelsCount = _dbContext.Set<Novel>().ToList().Count;
-            int characterCount = _dbContext.Set<Character>().ToList().Count;
-
             var count = new
             {
-                Animes = $"{animesCount}",
-                Books = $"{booksCount}",
-                Series = $"{seriesCount}",
-                Movies = $"{moviesCount}",
-                Comics = $"{comicsCount}",
-                Mangas = $"{mangasCount}",
-                Novels = $"{novelsCount}",
-                Characters = $"{characterCount}",
+                Animes = _dbContext.Set<Anime>().ToList().Count,
+                Books = _dbContext.Set<Book>().ToList().Count,
+                Series = _dbContext.Set<Serie>().ToList().Count,
+                Movies = _dbContext.Set<Movie>().ToList().Count,
+                Comics = _dbContext.Set<Comic>().ToList().Count,
+                Mangas = _dbContext.Set<Manga>().ToList().Count,
+                Novels = _dbContext.Set<Novel>().ToList().Count,
+                Characters = _dbContext.Set<Character>().ToList().Count,
             };
-
+           
             return count;
         }
 
@@ -64,14 +57,14 @@ namespace Repository.Utils
         {
             var urls = new
             {
-                Animes = "https://localhost:7115/entertainHubApi/Anime",
-                Book = "https://localhost:7115/entertainHubApi/Book",
-                Series = "https://localhost:7115/entertainHubApi/Serie",
-                Movies = "https://localhost:7115/entertainHubApi/Movie",
-                Comics = "https://localhost:7115/entertainHubApi/Comic",
-                Mangas = "https://localhost:7115/entertainHubApi/Manga",
-                Novels = "https://localhost:7115/entertainHubApi/Novel",
-                Characters = "https://localhost:7115/entertainHubApi/Character",
+                Animes = "entertainHubApi/Anime",
+                Book = "entertainHubApi/Book",
+                Series = "entertainHubApi/Serie",
+                Movies = "entertainHubApi/Movie",
+                Comics = "entertainHubApi/Comic",
+                Mangas = "entertainHubApi/Manga",
+                Novels = "entertainHubApi/Novel",
+                Characters = "entertainHubApi/Character",
             };
 
             return urls;
@@ -81,14 +74,116 @@ namespace Repository.Utils
         {
             var methods = new
             {
-                GetAll = "https://localhost:7115/entertainHubApi/model",
-                Get = "https://localhost:7115/entertainHubApi/model/Get?id=3",
-                Insert = "https://localhost:7115/entertainHubApi/model/Insert",
-                Update = "https://localhost:7115/entertainHubApi/model/Update",
-                Delete = "https://localhost:7115/entertainHubApi/model/Delete?id=1"
+                GetAll = "entertainHubApi/model",
+                Get = "entertainHubApi/model/Get/3",
+                Insert = "entertainHubApi/model/Insert",
+                Update = "entertainHubApi/model/Update",
+                Delete = "entertainHubApi/model/Delete/1"
             };
 
             return methods;
+        }
+
+        public object ListSchemas()
+        {
+            var schemas = new
+            {
+                Animes = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    seasons = "int",
+                    studio = "string",
+                    episodes = "int"
+                },
+
+                Books = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    pages = "int",
+                    author = "string"
+                },
+
+                Mangas = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    pages = "int",
+                    author = "string"
+                },
+
+                Novels = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    pages = "int",
+                    author = "string"
+                },
+
+                Series = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    seasons = "int",
+                    episodes = "int",
+                    director = "string"
+                },
+
+                Movies = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    episodes = "int",
+                    duration = "string",
+                    director = "string"
+                },
+
+                Comics = new
+                {
+                    name = "string",
+                    description = "string",
+                    release = "string",
+                    date = "string",
+                    imageUrl = "string",
+                    genres = "string",
+                    pages = "int",
+                    author = "string"
+                },
+
+                Characters = new
+                {
+                    name = "string",
+                    description = "string",
+                    IdEntertainment = "int",
+                }
+            };
+
+            return schemas;
         }
     }
 }
